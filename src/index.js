@@ -76,13 +76,13 @@ export default class Likely extends Component {
   }
 
   render() {
-    const {skin, size} = this.props
+    const {skin, size, link, ...props} = this.props
     const className = 'likely'
       + (skin !== 'default' ? ` likely-${skin}` : '')
       + (size !== 'default' ? ` likely-${size}` : '')
 
     return (
-      <div className={className} ref={(el) => { this.rootEl = el }}>
+      <div className={className} ref={(el) => { this.rootEl = el }} data-link={link} {...props}>
         {this.props.children}
       </div>
     )
@@ -104,5 +104,6 @@ Likely.propTypes = {
     'default',
     'big',
   ]),
+  link: PropTypes.string,
   children: node,
 }
