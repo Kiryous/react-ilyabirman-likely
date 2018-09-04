@@ -112,14 +112,16 @@ export default class Likely extends Component {
   }
 
   render() {
-    const { skin, size } = this.props;
+    const _props = this.props,
+          { skin, size, link } = _props,
+          props = _objectWithoutProperties(_props, ['skin', 'size', 'link']);
     const className = 'likely' + (skin !== 'default' ? ` likely-${skin}` : '') + (size !== 'default' ? ` likely-${size}` : '');
 
     return React.createElement(
       'div',
-      { className: className, ref: el => {
+      _extends({ className: className, ref: el => {
           this.rootEl = el;
-        } },
+        }, 'data-link': link }, props),
       this.props.children
     );
   }
@@ -133,5 +135,6 @@ Likely.defaultProps = {
 Likely.propTypes = {
   skin: oneOf(['default', 'light']),
   size: oneOf(['small', 'default', 'big']),
+  link: PropTypes.string,
   children: node
 };
